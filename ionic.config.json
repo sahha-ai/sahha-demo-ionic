@@ -1,0 +1,7 @@
+{
+  "name": "sahha-demo-ionic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
