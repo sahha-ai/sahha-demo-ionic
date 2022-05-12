@@ -1,4 +1,13 @@
-import './ExploreContainer.css';
+import "./ExploreContainer.css";
+import React from "react";
+import {
+  IonButton,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+} from "@ionic/react";
 
 interface ContainerProps {
   name: string;
@@ -6,10 +15,28 @@ interface ContainerProps {
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
   return (
-    <div className="container">
-      <strong>{name}</strong>
-      <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-    </div>
+    <IonContent>
+      <IonList>
+        <IonListHeader lines="inset">
+          <IonLabel>{name}</IonLabel>
+        </IonListHeader>
+        <IonItem>
+          <IonLabel>Pokémon Yellow</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Mega Man X</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonLabel>The Legend of Zelda</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Pac-Man</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Super Mario World</IonLabel>
+        </IonItem>
+      </IonList>
+    </IonContent>
   );
 };
 

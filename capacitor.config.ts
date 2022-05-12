@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'sahha-demo-ionic',
+  appId: 'demo.sahha.ionic',
+  appName: 'Sahha Demo',
   webDir: 'build',
   bundledWebRuntime: false
 };

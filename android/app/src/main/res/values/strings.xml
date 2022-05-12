@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Sahha Demo</string>
+    <string name="title_activity_main">Sahha Demo</string>
+    <string name="package_name">demo.sahha.ionic</string>
+    <string name="custom_url_scheme">demo.sahha.ionic</string>
+</resources>
