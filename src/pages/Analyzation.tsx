@@ -15,7 +15,7 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import "./Page.css";
-import { checkmarkCircle, analytics } from "ionicons/icons";
+import { checkmarkCircle, analytics, closeCircle } from "ionicons/icons";
 import { Sahha } from "sahha-capacitor";
 
 const Analyzation: React.FC = () => {
@@ -96,7 +96,7 @@ const Analyzation: React.FC = () => {
                 presentToast({
                   message: "Analysis Error",
                   duration: 2000,
-                  icon: checkmarkCircle,
+                  icon: closeCircle,
                 });
               });
           }}

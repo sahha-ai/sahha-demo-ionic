@@ -20,7 +20,7 @@ import {
 import "./Page.css";
 import React, { useEffect, useState } from "react";
 import { NativeStorage } from "@awesome-cordova-plugins/native-storage";
-import { checkmarkCircle, person } from "ionicons/icons";
+import { checkmarkCircle, closeCircle, person } from "ionicons/icons";
 import { Sahha, SahhaDemographic } from "sahha-capacitor";
 
 const Profile: React.FC = () => {
@@ -202,9 +202,9 @@ const Profile: React.FC = () => {
               .catch((error: Error) => {
                 console.error(error);
                 presentToast({
-                  message: "Demographic Error",
+                  message: error.message,
                   duration: 2000,
-                  icon: checkmarkCircle,
+                  icon: closeCircle,
                 });
               });
           }}

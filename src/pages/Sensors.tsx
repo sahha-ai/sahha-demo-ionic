@@ -19,7 +19,13 @@ import {
 } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import "./Page.css";
-import { checkmarkCircle, walk, moon, speedometer } from "ionicons/icons";
+import {
+  checkmarkCircle,
+  walk,
+  moon,
+  speedometer,
+  closeCircle,
+} from "ionicons/icons";
 import { Sahha, SahhaSensor, SahhaSensorStatus } from "sahha-capacitor";
 
 const Motion: React.FC = () => {
@@ -133,6 +139,32 @@ const Motion: React.FC = () => {
                 }}
               >
                 OPEN APP SETTINGS
+              </IonButton>
+              <IonItem></IonItem>
+              <IonButton
+                expand="block"
+                onClick={() => {
+                  //Sahha.postSensorData({ sensors: [SahhaSensor.pedometer] })
+                  Sahha.postSensorData()
+                    .then((data) => {
+                      console.log(`Success: ${data.success}`);
+                      presentToast({
+                        message: "Post Sensor Data OK",
+                        duration: 2000,
+                        icon: checkmarkCircle,
+                      });
+                    })
+                    .catch((error: Error) => {
+                      console.error(error);
+                      presentToast({
+                        message: error.message,
+                        duration: 2000,
+                        icon: closeCircle,
+                      });
+                    });
+                }}
+              >
+                POST SENSOR DATA
               </IonButton>
             </IonCol>
           </IonRow>
