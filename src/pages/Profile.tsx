@@ -163,11 +163,6 @@ const Profile: React.FC = () => {
               });
             } else {
               setPrefs();
-              presentToast({
-                message: "Profile Saved",
-                duration: 2000,
-                icon: checkmarkCircle,
-              });
 
               const demographic: SahhaDemographic = {
                 age: parseInt(age),
@@ -178,9 +173,19 @@ const Profile: React.FC = () => {
               Sahha.postDemographic({ demographic: demographic })
                 .then((data) => {
                   console.log(`Success: ${data.success}`);
+                  presentToast({
+                    message: "Profile Saved",
+                    duration: 2000,
+                    icon: checkmarkCircle,
+                  });
                 })
                 .catch((error: Error) => {
                   console.error(error);
+                  presentToast({
+                    message: error.message,
+                    duration: 2000,
+                    icon: closeCircle,
+                  });
                 });
             }
           }}

@@ -18,7 +18,7 @@ import "./Page.css";
 import React, { useEffect, useState } from "react";
 import { Keyboard } from "@capacitor/keyboard";
 import { NativeStorage } from "@awesome-cordova-plugins/native-storage";
-import { checkmarkCircle, lockClosed } from "ionicons/icons";
+import { checkmarkCircle, closeCircle, lockClosed } from "ionicons/icons";
 import { Sahha } from "sahha-capacitor";
 
 const Authentication: React.FC = (keyboard) => {
@@ -117,20 +117,25 @@ const Authentication: React.FC = (keyboard) => {
               });
             } else {
               setPrefs();
-              presentToast({
-                message: "Authentication Saved",
-                duration: 2000,
-                icon: checkmarkCircle,
-              });
               Sahha.authenticate({
                 profileToken: profileToken,
                 refreshToken: refreshToken,
               })
                 .then((data) => {
                   console.log(`Success: ${data.success}`);
+                  presentToast({
+                    message: "Authentication Saved",
+                    duration: 2000,
+                    icon: checkmarkCircle,
+                  });
                 })
                 .catch((error: Error) => {
                   console.error(error);
+                  presentToast({
+                    message: error.message,
+                    duration: 2000,
+                    icon: closeCircle,
+                  });
                 });
             }
           }}
