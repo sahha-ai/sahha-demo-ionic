@@ -5,9 +5,6 @@
 /.pnp
 .pnp.js
 
-# iOS
-Podfile
-
 # testing
 /coverage
 
