@@ -49,6 +49,40 @@ const Analyzation: React.FC = () => {
         <IonButton
           expand="block"
           onClick={() => {
+            let endDate: Date = new Date();
+            let days = endDate.getDate() - 7;
+            var startDate = new Date();
+            startDate.setDate(days);
+
+            Sahha.analyze({
+              startDate: startDate.getTime(),
+              endDate: endDate.getTime(),
+            })
+              .then((data) => {
+                console.log(data.value);
+                setAnalysis(data.value);
+                presentToast({
+                  message: "Analysis OK",
+                  duration: 2000,
+                  icon: checkmarkCircle,
+                });
+              })
+              .catch((error: Error) => {
+                console.error(error);
+                setAnalysis("");
+                presentToast({
+                  message: "Analysis Error",
+                  duration: 2000,
+                  icon: checkmarkCircle,
+                });
+              });
+          }}
+        >
+          ANALYZE PREVIOUS WEEK
+        </IonButton>
+        <IonButton
+          expand="block"
+          onClick={() => {
             Sahha.analyze()
               .then((data) => {
                 console.log(data.value);
