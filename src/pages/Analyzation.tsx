@@ -12,6 +12,7 @@ import {
   useIonToast,
   IonFooter,
   IonLabel,
+  IonToggle,
 } from "@ionic/react";
 import React, { useState } from "react";
 import "./Page.css";
@@ -21,6 +22,7 @@ import { Sahha } from "sahha-capacitor";
 const Analyzation: React.FC = () => {
   const [presentToast, dismissToast] = useIonToast();
   const [analysis, setAnalysis] = useState<string>("");
+  const [isToggleOn, setIsToggleOn] = useState<boolean>(false);
 
   return (
     <IonPage>
@@ -46,6 +48,13 @@ const Analyzation: React.FC = () => {
       </IonContent>
 
       <IonFooter>
+        <IonItem>
+          <IonLabel>Include source data in analysis</IonLabel>
+          <IonToggle
+            checked={isToggleOn}
+            onIonChange={(e) => setIsToggleOn(e.detail.checked)}
+          />
+        </IonItem>
         <IonButton
           expand="block"
           onClick={() => {
@@ -57,6 +66,7 @@ const Analyzation: React.FC = () => {
             Sahha.analyze({
               startDate: startDate.getTime(),
               endDate: endDate.getTime(),
+              includeSourceData: isToggleOn,
             })
               .then((data) => {
                 console.log(data.value);
@@ -83,7 +93,9 @@ const Analyzation: React.FC = () => {
         <IonButton
           expand="block"
           onClick={() => {
-            Sahha.analyze()
+            Sahha.analyze({
+              includeSourceData: isToggleOn,
+            })
               .then((data) => {
                 console.log(data.value);
                 setAnalysis(data.value);
