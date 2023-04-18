@@ -18,4 +18,4 @@ include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/@capacitor/status-bar/android')
 
 include ':sahha-capacitor'
-project(':sahha-capacitor').projectDir = new File('../node_modules/sahha-capacitor/android')
+project(':sahha-capacitor').projectDir = new File('../../sahha-capacitor/android')

@@ -47,7 +47,6 @@ const App: React.FC = () => {
   const settings: SahhaSettings = {
     environment: SahhaEnvironment.production,
     sensors: [SahhaSensor.sleep],
-    postSensorDataManually: true,
   };
 */
 

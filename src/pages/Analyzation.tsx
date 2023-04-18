@@ -48,13 +48,6 @@ const Analyzation: React.FC = () => {
       </IonContent>
 
       <IonFooter>
-        <IonItem>
-          <IonLabel>Include source data in analysis</IonLabel>
-          <IonToggle
-            checked={isToggleOn}
-            onIonChange={(e) => setIsToggleOn(e.detail.checked)}
-          />
-        </IonItem>
         <IonButton
           expand="block"
           onClick={() => {
@@ -66,7 +59,6 @@ const Analyzation: React.FC = () => {
             Sahha.analyze({
               startDate: startDate.getTime(),
               endDate: endDate.getTime(),
-              includeSourceData: isToggleOn,
             })
               .then((data) => {
                 console.log(data.value);
@@ -94,7 +86,6 @@ const Analyzation: React.FC = () => {
           expand="block"
           onClick={() => {
             Sahha.analyze({
-              includeSourceData: isToggleOn,
             })
               .then((data) => {
                 console.log(data.value);

@@ -23,8 +23,9 @@ import { Sahha } from "sahha-capacitor";
 
 const Authentication: React.FC = (keyboard) => {
   const [presentToast, dismissToast] = useIonToast();
-  const [profileToken, setProfileToken] = useState<string>("");
-  const [refreshToken, setRefreshToken] = useState<string>("");
+  const [appId, setAppId] = useState<string>("");
+  const [appSecret, setAppSecret] = useState<string>("");
+  const [externalId, setExternalId] = useState<string>("");
 
   useEffect(() => {
     console.log("auth");
@@ -32,12 +33,16 @@ const Authentication: React.FC = (keyboard) => {
   }, []);
 
   const getPrefs = async () => {
-    Preferences.get({ key: "@profileToken" }).then(
-      (data: GetResult) => setProfileToken(data.value ?? ""),
+    Preferences.get({ key: "@appId" }).then(
+      (data: GetResult) => setAppId(data.value ?? ""),
       (error: Error) => console.error(error)
     );
-    Preferences.get({ key: "@refreshToken" }).then(
-      (data: GetResult) => setRefreshToken(data.value ?? ""),
+    Preferences.get({ key: "@appSecret" }).then(
+      (data: GetResult) => setAppSecret(data.value ?? ""),
+      (error: Error) => console.error(error)
+    );
+    Preferences.get({ key: "@externalId" }).then(
+      (data: GetResult) => setExternalId(data.value ?? ""),
       (error: Error) => console.error(error)
     );
   };
@@ -45,17 +50,24 @@ const Authentication: React.FC = (keyboard) => {
   const setPrefs = async () => {
     console.log("set prefs");
     Preferences.set({
-      key: "@profileToken",
-      value: profileToken,
+      key: "@appId",
+      value: appId,
     }).then(
-      () => console.log("profileToken set"),
+      () => console.log("appId set"),
       (error: Error) => console.error(error)
     );
     Preferences.set({
-      key: "@refreshToken",
-      value: refreshToken,
+      key: "@appSecret",
+      value: appSecret,
     }).then(
-      () => console.log("refreshToken set"),
+      () => console.log("appSecret set"),
+      (error: Error) => console.error(error)
+    );
+    Preferences.set({
+      key: "@externalId",
+      value: externalId,
+    }).then(
+      () => console.log("externalId set"),
       (error: Error) => console.error(error)
     );
   };
@@ -79,12 +91,12 @@ const Authentication: React.FC = (keyboard) => {
 
       <IonFooter>
         <IonItem>
-          <IonLabel>Profile Token</IonLabel>
+          <IonLabel>App ID</IonLabel>
           <IonInput
-            value={profileToken}
+            value={appId}
             placeholder="Input here"
             onIonChange={(e) => {
-              setProfileToken(e.detail.value!);
+              setAppId(e.detail.value!);
               //Keyboard.hide();
             }}
             clearInput={true}
@@ -93,12 +105,26 @@ const Authentication: React.FC = (keyboard) => {
         </IonItem>
         <IonItem></IonItem>
         <IonItem>
-          <IonLabel>Refresh Token</IonLabel>
+          <IonLabel>App Secret</IonLabel>
           <IonInput
-            value={refreshToken}
+            value={appSecret}
             placeholder="Input here"
             onIonChange={(e) => {
-              setRefreshToken(e.detail.value!);
+              setAppSecret(e.detail.value!);
+              //Keyboard.hide();
+            }}
+            clearInput={true}
+            enterkeyhint="done"
+          ></IonInput>
+        </IonItem>
+        <IonItem></IonItem>
+        <IonItem>
+          <IonLabel>External ID</IonLabel>
+          <IonInput
+            value={externalId}
+            placeholder="Input here"
+            onIonChange={(e) => {
+              setExternalId(e.detail.value!);
               //Keyboard.hide();
             }}
             clearInput={true}
@@ -111,21 +137,27 @@ const Authentication: React.FC = (keyboard) => {
         <IonButton
           expand="block"
           onClick={() => {
-            if (profileToken === "") {
+            if (appId === "") {
               presentToast({
                 buttons: [{ text: "OK", handler: () => dismissToast() }],
-                message: "You need to input a PROFILE TOKEN",
+                message: "You need to input an APP ID",
               });
-            } else if (refreshToken === "") {
+            } else if (appSecret === "") {
               presentToast({
                 buttons: [{ text: "OK", handler: () => dismissToast() }],
-                message: "You need to input a REFRESH TOKEN",
+                message: "You need to input an APP SECRET",
+              });
+            } else if (externalId === "") {
+              presentToast({
+                buttons: [{ text: "OK", handler: () => dismissToast() }],
+                message: "You need to input an EXTERNAL ID",
               });
             } else {
               setPrefs();
               Sahha.authenticate({
-                profileToken: profileToken,
-                refreshToken: refreshToken,
+                appId: appId,
+                appSecret: appSecret,
+                externalId: externalId
               })
                 .then((data) => {
                   console.log(`Success: ${data.success}`);
